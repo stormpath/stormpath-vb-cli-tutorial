@@ -28,6 +28,10 @@ Module Demo
 
     Sub Main()
         RunDemo.GetAwaiter.GetResult()
+
+        ' Uncomment to run non-async version
+        'Dim syncDemo As New DemoSync()
+        'syncDemo.RunDemo()
     End Sub
 
     Private Async Function RunDemo() As Task
@@ -57,7 +61,6 @@ Module Demo
             .SetSurname("Stormtrooper") _
             .SetEmail("tk421@deathstar.co") _
             .SetPassword("Changeme!123")
-        joe.CustomData.Put(New With {.read = True, .write = False})
 
         Await app.CreateAccountAsync(joe)
         Console.WriteLine("Created account " & joe.Email)
@@ -73,6 +76,7 @@ Module Demo
 
         ' Create a demo group for Joe to be part of
         ' And an admin group Joe is NOT part of
+        ' (In a production application, these would be created beforehand and only once)
         Dim demoUsers = client.Instantiate(Of IGroup) _
             .SetName("DemoUsers") _
             .SetDescription("Demo users who do not have administrator access.")
@@ -88,12 +92,16 @@ Module Demo
         Await joe.AddGroupAsync(demoUsers)
 
         ' Get role-based authorization from group
-        Dim roles = (Await joe.GetGroups().ToListAsync()) _
+        Dim roleNames = (Await joe.GetGroups().ToListAsync()) _
             .Select(Function(g) g.Name)
         Console.WriteLine("Roles for " & joe.GivenName & ": " &
-                          String.Join(", ", roles))
+                          String.Join(", ", roleNames))
 
-        ' Get fine-grained permissions from customData
+        ' Save fine-grained permissions to Joe's account using custom data
+        joe.CustomData.Put(New With {.read = True, .write = False})
+        Await joe.SaveAsync()
+
+        ' Get fine-grained permissions from custom data
         Dim joeCustomData = Await joe.GetCustomDataAsync()
         Dim canRead = CBool(joeCustomData("read"))
         Dim canWrite = CBool(joeCustomData("write"))
@@ -104,6 +112,7 @@ Module Demo
         ' An email is sent to Joe, which includes a callback link to your
         ' application, and a token in the URL queryString.
         Dim token = Await app.SendPasswordResetEmailAsync("tk421@deathstar.co")
+        ' In the controller that handles the callback action, capture the token from the queryString.
         ' Once you have the token, the workflow can be completed.
         Await app.ResetPasswordAsync(token.GetValue(), "ItsATrap1138!")
         Console.WriteLine("Password reset for " & joe.Email)
@@ -116,6 +125,7 @@ Module Demo
         Console.WriteLine("Cleaned up API objects")
 
         ' Wait for user input before closing console window
+        Console.WriteLine("Done!")
         Console.ReadKey(False)
     End Function
 
