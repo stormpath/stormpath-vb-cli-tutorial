@@ -33,11 +33,14 @@ Module Demo
     Private Async Function RunDemo() As Task
 
         ' Load an API Key and Secret from the specified file path
+        ' This is only necessary if the API Key is not stored in environment variables
+        ' or in the default location (~\.stormpath\apiKey.properties).
         Dim apiKey = ClientApiKeys.Builder _
             .SetFileLocation("~\.stormpath\apiKey.properties") _
             .Build()
 
         ' Build a client object - everything starts here!
+        ' .SetApiKey() is only necessary if specifying an API Key location above.
         Dim client = Clients.Builder _
             .SetApiKey(apiKey) _
             .Build()
