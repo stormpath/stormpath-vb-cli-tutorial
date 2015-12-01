@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{66B4D7B6-057D-4C16-A8CC-5AC29DD5DA60}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <StartupObject>StormpathVbDemo.Module1</StartupObject>
+    <StartupObject>StormpathVbDemo.Demo</StartupObject>
     <RootNamespace>StormpathVbDemo</RootNamespace>
     <AssemblyName>StormpathVbDemo</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -47,6 +47,26 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\RestSharp.105.2.2\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Stormpath.SDK, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Stormpath.SDK.Core.0.3.0\lib\net45\Stormpath.SDK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Stormpath.SDK.JsonNetSerializer, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Stormpath.SDK.JsonNetSerializer.0.3.0\lib\net45\Stormpath.SDK.JsonNetSerializer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Stormpath.SDK.RestSharpClient, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Stormpath.SDK.RestSharpClient.0.3.0\lib\net45\Stormpath.SDK.RestSharpClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -68,7 +88,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Module1.vb" />
+    <Compile Include="Demo.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -104,6 +124,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
