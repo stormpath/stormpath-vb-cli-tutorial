@@ -1,4 +1,4 @@
-# stormpath-vb-console-sample
+# stormpath-vb-cli-tutorial
 Original post: [A Guide to Easy Authentication and Authorization in Visual Basic.NET](https://stormpath.com/blog/easy-authentication-and-authorization-in-visual-basic-dotnet/)
 
 ---
